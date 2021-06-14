@@ -1,0 +1,39 @@
+.table-striped{
+  border: 1px solid black;
+  text-align: center;
+}
+td,th{
+  border: 1px solid black;
+  text-align: center;
+  height: 50px;
+}
+.table{
+  padding-top: 5%;
+}
+#log{
+  text-align: right;
+}
+#details{
+  text-align:left;
+  float: left;
+  font-size: 25px;
+}
+#title {
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: darkgoldenrod;
+  font-weight: bold;
+}
+form{
+text-align: center;
+}
+#invalidMessage{
+  text-align: center;
+  color: red;
+  font-size: 20px;
+}
+.container-fluid{
+  background: #E3E3E3;
+  height: 100%;
+  width: 100%;
+}

@@ -1,0 +1,17 @@
+button{
+    background: rgb(1, 29, 51);
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 45%;
+}
+.container-fluid{
+  background: #E3E3E3  ;
+}
+
+h1{
+  font-family: "Brush Script MT",cursive;
+}
+#log{
+  text-align: right;
+}

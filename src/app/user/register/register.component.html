@@ -1,0 +1,294 @@
+<html>
+<body class="container">
+<div class="container">
+
+  <div class="col-md-5 col-md-offset-4">
+    <h1 i18n>Account Registration</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+
+      <div class="form-group ">
+        <label for="name" i18n>Name</label>
+        <input formControlName="name" id="name" type="text" i18n-placeholder placeholder="Name" class="form-control">
+        <div *ngIf="isSubmitted && formControls.name.errors">
+          <div *ngIf="formControls.name.errors.pattern" i18n>Name should contain only alphabets and space</div>
+          <div *ngIf="formControls.name.errors.required" style="color: red; font-size: 14px;" i18n>Name is required.</div>
+        </div>
+      </div>
+
+      <div class="form-group ">
+        <label for="username" i18n>User Name</label>
+        <input formControlName="username" id="username" type="text" i18n-placeholder placeholder="Username" class="form-control">
+
+        <div *ngIf="isSubmitted && formControls.username.errors">
+          <div *ngIf="formControls.username.errors.minlength" style="color: red; font-size: 14px;" i18n>User name should be 4
+            character.
+          </div>
+          <div *ngIf="formControls.username.errors.required" style="color: red; font-size: 14px;" i18n>User name is
+            required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" i18n>Password</label>
+        <input formControlName="password" id="password" type="password" i18n-placeholder placeholder="Password" class="form-control"/>
+
+        <div *ngIf="isSubmitted && formControls.password.errors">
+          <div *ngIf="formControls.password.errors.minlength" style="color: red; font-size: 14px;" i18n>Password should be 6
+            character.
+          </div>
+          <div *ngIf="formControls.password.errors.required" style="color: red; font-size: 14px;" i18n>Password is
+            required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-12 col-md-6 form-group">
+          <label for="guardiantype" i18n>Guardian type</label>
+          <select class="form-control select2" id="guardiantype" formControlName="guardiantype">
+            <option value="father">Father</option>
+            <option value="mother" selected>Mother</option>
+            <option value="brother">Brother</option>
+            <option value="sister">Sister</option>
+          </select>
+
+          <div *ngIf="isSubmitted && formControls.guardiantype.errors">
+            <div *ngIf="formControls.guardiantype.errors.required" style="color: red; font-size: 14px;" i18n>
+              Select Guardian type
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-12 col-md-6 form-group">
+          <label for="gname" i18n>Guardian Name</label>
+          <input formControlName="gname" id="gname" type="text" i18n-placeholder placeholder="Guardian name" class="form-control"/>
+          <div *ngIf="isSubmitted && formControls.gname.errors">
+            <div *ngIf="formControls.gname.errors.required" style="color: red; font-size: 14px;" i18n>Guardian Name is
+              required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group ">
+        <label for="address" i18n>Address</label>
+        <textarea formControlName="address" id="address" type="text" i18n-placeholder placeholder="Full address"
+                  class="form-control"></textarea>
+        <div *ngIf="isSubmitted && formControls.address.errors">
+          <div *ngIf="formControls.address.errors.required" style="color: red; font-size: 14px;" i18n>Address is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="citizenship" i18n>Citizenship</label>
+        <input formControlName="citizenship" type="text" i18n-placeholder placeholder="citizenship" class="form-control"
+               id="citizenship">
+
+        <div *ngIf="isSubmitted && formControls.citizenship.errors">
+          <div *ngIf="formControls.citizenship.errors.required" style="color: red; font-size: 14px;" i18n>Citizenship is
+            required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="inputCountry" i18n>Country</label>
+          <select (change)="onSelect($event.target.value)" [(ngModel)]="selectedCountry.id"
+                  class="form-control" formControlName="inputCountry" id="inputCountry">
+            <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
+          </select>
+          <div *ngIf="isSubmitted && formControls.inputCountry.errors">
+            <div *ngIf="formControls.inputCountry.errors.required" style="color: red; font-size: 14px;" i18n>Select Country
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="state" i18n>State</label>
+          <select formControlName="state" id="state" class="form-control">
+            <option *ngFor="let state of states " value={{state.id}}>{{state.name}}</option>
+          </select>
+          <div *ngIf="isSubmitted && formControls.state.errors">
+            <div *ngIf="formControls.state.errors.required" style="color: red; font-size: 14px;" i18n>Select state</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="email" i18n>Email</label>
+        <input formControlName="email" id="email" type="email" i18n-placeholder placeholder="Email" class="form-control">
+
+        <div *ngIf="isSubmitted && formControls.email.errors">
+          <div *ngIf="formControls.email.errors.email" style="color: red; font-size: 14px;" i18n>Please, enter valid email
+            address.
+          </div>
+          <div *ngIf="formControls.email.errors.required" style="color: red; font-size: 14px;" i18n>  Email id is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-12 col-md-6 form-group">
+          <label for="gender" i18n>Gender</label>
+          <select class="form-control" formControlName="gender" id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="others">Others</option>
+          </select>
+          <div *ngIf="isSubmitted && formControls.gender.errors">
+            <div *ngIf="formControls.gender.errors.required" style="color: red; font-size: 14px;" i18n>Select gender</div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-12 col-md-6 form-group">
+          <label for="maritalstatus" i18n>Marital Status</label>
+          <select class="form-control" formControlName="maritalstatus" id="maritalstatus">
+            <option value="married" i18n>Married</option>
+            <option value="unmarried" i18n>Unmarried</option>
+          </select>
+          <div *ngIf="isSubmitted && formControls.maritalstatus.errors">
+            <div *ngIf="formControls.maritalstatus.errors.required" style="color: red; font-size: 14px;" i18n>Select Marital
+              status
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contact" i18n>Contact</label>
+        <input formControlName="contact" type="text" i18n-placeholder placeholder="Phone" class="form-control" id="contact">
+
+        <div *ngIf="isSubmitted && formControls.contact.errors">
+          <div *ngIf="formControls.contact.errors.pattern" i18n>Please, enter correct 10 digit number.</div>
+          <div *ngIf="formControls.contact.errors.required" style="color: red; font-size: 14px;" i18n>Contact number is
+            required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-12 col-md-6 form-group">
+          <label for="dob" i18n>Date of birth</label>
+          <input type="date" formControlName="dob" (change)="onDate($event.currentTarget.value)" class="form-control" id="dob"
+                 max="{{date | date:'yyyy-MM-dd'}}"/>
+          <div *ngIf="isSubmitted && formControls.dob.errors">
+            <div *ngIf="formControls.dob.errors.required" style="color: red; font-size: 14px;" i18n>Date of birth is
+              required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-12 col-md-6">
+          <label for="registerDate" i18n>Registered date</label>
+          <input formControlName="registerDate" type="date" class="form-control" id="registerDate">
+          <div *ngIf="isSubmitted && formControls.registerDate.errors">
+            <div *ngIf="formControls.registerDate.errors.required" style="color: red; font-size: 14px;" i18n>Select register
+              date.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-12 col-md-6">
+          <label for="accountType" i18n>Account Type</label>
+          <select class="form-control select2" id="accountType" (change)="onAccountType($event.currentTarget.value)"
+                  formControlName="accountType">
+            <option value="saving" i18n>Saving</option>
+            <option value="salary" i18n>Salary</option>
+          </select>
+          <div *ngIf="isSubmitted && formControls.accountType.errors">
+            <div *ngIf="formControls.accountType.errors.required" style="color: red; font-size: 14px;" i18n>Select type
+              account
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-12 col-md-6">
+          <label for="branch" i18n>Branch name</label>
+          <input formControlName="branch" type="text" i18n-placeholder placeholder="Branch name" class="form-control" id="branch">
+          <div *ngIf="isSubmitted && formControls.branch.errors">
+            <div *ngIf="formControls.branch.errors.required" style="color: red; font-size: 14px;" i18n>Branch name is
+              required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="citizen" i18n>Citizen status</label>
+        <input type="text" formControlName="citizen" class="form-control" i18n-placeholder placeholder="citizen status" id="citizen">
+        <div *ngIf="isSubmitted && formControls.citizen.errors">
+          <div *ngIf="formControls.citizen.errors.required" style="color: red; font-size: 14px;" i18n>citizen status is
+            required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="deposit" i18n>Initial Deposit Amount</label>
+        <input formControlName="deposit" type="text" i18n-placeholder placeholder="Deposit amount" class="form-control" id="deposit">
+        <div *ngIf="isSubmitted && formControls.deposit.errors">
+          <div *ngIf="formControls.deposit.errors.required" style="color: red; font-size: 14px;" i18n>Deposit money is
+            required.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-12 col-12 col-md-5">
+          <label for="loantype" i18n>Identification Proof type</label>
+          <select class="form-control select2" id="loantype" formControlName="prooftype">
+            <option value="aadhar" selected>Aadhaar card</option>
+            <option value="pan">Pan card</option>
+          </select>
+          <div *ngIf="isSubmitted && formControls.prooftype.errors">
+            <div *ngIf="formControls.prooftype.errors.required" style="color: red; font-size: 14px;" i18n>Type of proof is
+              required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-12 col-md-7">
+          <label for="docnumber" i18n>Identification Document Number</label>
+          <input formControlName="docnumber" type="text" i18n-placeholder placeholder="Document number" class="form-control"
+                 id="docnumber">
+
+          <div *ngIf="isSubmitted && formControls.docnumber.errors">
+            <div *ngIf="formControls.docnumber.errors.pattern" i18n>Document number should contain alphanumeric 12 digit</div>
+            <div *ngIf="formControls.docnumber.errors.required" style="color: red; font-size: 14px;" i18n>Document number is
+              required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="refername" i18n>Reference account holder name</label>
+        <input formControlName="refername" type="text" i18n-placeholder placeholder="Reference name" class="form-control" id="refername">
+        <div *ngIf="isSubmitted && formControls.refername.errors">
+          <div *ngIf="formControls.refername.errors.required" style="color: red; font-size: 14px;" i18n>Reference name is
+            required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="refernumber" i18n>Reference account number</label>
+        <input formControlName="refernumber" type="text" i18n-placeholder placeholder="Reference account number" class="form-control"
+               id="refernumber">
+        <div *ngIf="isSubmitted && formControls.refernumber.errors">
+          <div *ngIf="formControls.refernumber.errors.required" style="color: red; font-size: 14px;" i18n>Reference number is
+            required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="referaddress" i18n> Reference account holder address</label>
+        <input formControlName="referaddress" type="text" i18n-placeholder placeholder="Address" class="form-control" id="referaddress">
+        <div *ngIf="isSubmitted && formControls.referaddress.errors">
+          <div *ngIf="formControls.referaddress.errors.required" style="color: red; font-size: 14px;" i18n>Reference address
+            is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-primary" type="submit" i18n>Register</button>
+      </div>
+
+    </form>
+    <p style="text-align: center" i18n><em>Registered User? <a routerLink="/login">click here</a> to Login</em></p>
+  </div>
+</div>
+</body>
+</html>

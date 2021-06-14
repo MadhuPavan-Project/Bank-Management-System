@@ -1,0 +1,112 @@
+<body>
+  <nav class="navbar navbar-inverse  navbar-fixed-top">
+    <div>
+      <div class="navbar-header">
+        <a class="navbar-brand" routerLink="/home" i18n routerLinkActive="active">Home</a>
+      </div>
+    </div>
+  </nav>
+<br><br>
+
+<div class="container-fluid">
+  <h2 id="title" i18n>
+    Welcome {{name}}
+  </h2>
+  <div id="details" i18n>Customer Id: <em>{{ cid}}</em></div>
+  <div id="log"><em i18n>last logged in: {{time}}</em></div>
+
+  <div class="container-fluid" id="queries" style="padding-top: 5%">
+
+    <div style="padding-left: 40%;"><h4 i18n>Click on the image you want to choose</h4></div>
+
+    <div style="float: left;padding-left: 15%;">
+
+      <a
+        style="border-radius: 25px;text-align: center;background: url(../../../assets/images/copy.jpg) no-repeat;height: 200px;width: 210px;"
+        role="presentation" routerLink="/loan" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}" class="btn btn-primary"></a>
+
+    </div>
+    <div style="float:left">
+      <form (ngSubmit)="knowDetails()">
+        <button type="submit"
+                style="padding-top: 70%;color: black;font-weight:bold;border-radius: 25px;text-align: center;background:url(../../../assets/images/knowdetails.jfif) no-repeat  center;image-resolution:from-image;height: 200px;width: 210px"
+        ></button>
+      </form>
+    </div>
+    <div style="float: left">
+      <a
+        style="border-radius: 25px;text-align: center;background: url(../../../assets/images/images.png) no-repeat;height: 200px;width: 210px"
+        role="presentation" routerLink="/update" routerLinkActive="active" class="btn btn-primary"></a>
+    </div>
+    <div style="float:left">
+      <form (ngSubmit)="submit()">
+        <input type="submit"
+               style="padding-top: 70%;color: black;font-weight:bold;border-radius: 25px;text-align: center;background:url(../../../assets/images/loanhistory.png) no-repeat  center;image-resolution:from-image;height: 200px;width: 210px"
+               value="LOAN HISTORY" i18n>
+      </form>
+    </div>
+    <div>
+      <a
+        style="border-radius: 25px;text-align: center;background:url(../../../assets/images/logout.jfif) no-repeat  center;image-resolution:from-image;height: 200px;width: 210px"
+        class="btn btn-primary" (click)="logout()" role="presentation"></a>
+      <br><br><br>
+    </div>
+    <div *ngIf="knowDetailsStatus">
+      <table class="table table-striped" id="table" [hidden]="isSubmitted">
+        <tr>
+          <th colspan="14">Personal Details</th>
+        </tr>
+        <tr>
+          <th> Name</th>
+          <th> Customer Id</th>
+          <th>Account Number</th>
+          <th> Gender</th>
+          <th> Marital Status</th>
+          <th> Date of Birth</th>
+          <th> Citizenship</th>
+          <th> Citizen Status</th>
+          <th> Contact Number</th>
+          <th> Email Id</th>
+          <th> Registered On</th>
+          <th> Account Type</th>
+          <th> Identity Proof</th>
+          <th> Reference holder name</th>
+        </tr>
+        <tr *ngFor="let customer of details">
+          <td *ngFor="let col of customerDetails">
+            {{customer[col]}}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="isSubmitted && valid">
+
+      <table class="table table-striped" [hidden]="knowDetailsStatus">
+        <tr>
+          <th colspan="6">Applied loan Details</th>
+        </tr>
+        <tr>
+          <th> Loan Type</th>
+          <th> Loan Amount</th>
+          <th> Loan Applied on</th>
+          <th> Loan Issued on</th>
+          <th> Rate of Interest (percentage)</th>
+          <th> Loan Duration (months)</th>
+        </tr>
+        <tr *ngFor="let loan of loanDetails">
+          <td *ngFor="let col of characters">
+            {{loan[col]}}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="isSubmitted && valid===false" id="invalidMessage">
+      {{invalidMessage}}
+    </div>
+
+  </div>
+
+</div>
+
+</body>

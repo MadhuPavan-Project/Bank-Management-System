@@ -1,0 +1,43 @@
+<div class="login">
+  <h1 style="text-align:center; font-family: 'Eras Medium ITC';font-size: 40px" i18n>
+    Login
+  </h1>
+  <form [formGroup]="loginForm" class="login-container" (ngSubmit)="login()">
+    <div class="form-group">
+      <p [ngClass]="{ 'has-error': isSubmitted && formControls.username.errors }">
+        <input type="text" i18n-placeholder placeholder="Username" formControlName="username">
+      </p>
+
+      <div *ngIf="isSubmitted && formControls.username.errors" class="help-block">
+        <div *ngIf="formControls.username.errors.required" style="color: red; font-size: 14px;text-align: center" i18n>
+          Username is required
+        </div>
+      </div>
+
+      <p [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+        <input type="password" i18n-placeholder placeholder="Password" formControlName="password">
+      </p>
+
+      <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
+        <div *ngIf="formControls.password.errors.minlength" style="color: red; font-size: 14px;text-align: center" i18n>Entered Password must be 6 character.</div>
+        <div *ngIf="formControls.password.errors.required" style="color: red; font-size: 14px;text-align: center" i18n>
+          Password is required
+        </div>
+      </div>
+      <div class="form-group " style="padding-left: 30%;">
+        <button class="btn btn-primary" i18n>
+          Login
+        </button>
+
+      </div>
+      <div style="color: red; font-size: 14px;text-align: center" i18n>
+        {{invalidMessage}}
+      </div>
+    </div>
+  </form>
+
+  <p class="text-center" style="font-weight: bold;font-size: 15px" i18n><em>Don't have an account ? <a
+    routerLink="/register">click
+    here</a> to register</em></p>
+</div>
+

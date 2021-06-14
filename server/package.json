@@ -1,0 +1,15 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "add update data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Siva",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.16.3",
+    "jsonserver": "^0.1.6"
+  }
+}

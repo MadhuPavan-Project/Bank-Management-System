@@ -1,0 +1,197 @@
+<app-header></app-header>
+<br><br><br>
+<div class="container-fluid" *ngIf="details">
+  <div class="col-md-5 col-md-offset-4">
+    <h1><em i18n>Update Details</em></h1>
+    <hr style="border: 2px solid black; ">
+    <form [formGroup]="updateForm" (ngSubmit)="submit()">
+
+      <div class="form-group ">
+        <label for="name" i18n>Name</label>
+        <input formControlName="name" id="name" type="text" [(ngModel)]="details.name" class="form-control">
+
+        <div *ngIf="formControls.name.errors && formControls.name.invalid" class="alert alert-danger">
+          <div *ngIf="formControls.name.errors.pattern" i18n>Name should contain only alphabets and space</div>
+          <div *ngIf="formControls.name.errors.required" style="color: red; font-size: 14px;" i18n>Name is required.</div>
+        </div>
+      </div>
+
+      <div class="form-group ">
+        <label for="username" i18n>User Name</label>
+        <input id="username" type="text" formControlName="username" [(ngModel)]="details.username"
+               class="form-control"/>
+      </div>
+
+      <div class="form-group">
+        <label for="password" i18n>Password</label>
+        <input formControlName="password" id="password" type="password" [(ngModel)]="details.password"
+               class="form-control"/>
+        <div *ngIf="formControls.password.touched && formControls.password.invalid" class="alert alert-danger">
+          <div *ngIf="formControls.password.errors.minlength" i18n>Password should be 6 character.</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="guardiantype" i18n>Guardian type</label>
+          <select [(ngModel)]="details['guardiantype']" class="form-control" formControlName="guardiantype"
+                  id="guardiantype" value={{details.guardiantype}}>
+            <option value="father" >Father</option>
+            <option value="mother" selected >Mother</option>
+            <option value="brother" >Brother</option>
+            <option value="sister" >Sister</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="gname" i18n>Guardian Name</label>
+          <input id="gname" type="text" formControlName="gname" [(ngModel)]="details['gname']" class="form-control"/>
+        </div>
+
+      </div>
+      <div class="form-group ">
+        <label for="address" i18n>Address</label>
+        <textarea id="address" type="text" formControlName="address" [(ngModel)]="details.address"
+                  class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="citizenship" i18n>Citizenship</label>
+        <input type="text" class="form-control" formControlName="citizenship" [(ngModel)]="details['citizenship']"
+               id="citizenship">
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="inputCountry" i18n>Country</label>
+          <select formControlName="inputCountry"
+                  (change)="onSelect($event.target.value)" [(ngModel)]="selectedCountry.id" id="inputCountry"
+                  class="form-control">
+            <option value="0">--Select--</option>
+            <option *ngFor="let country of countries" value={{country.id}}>{{country.name}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="state" i18n>State</label>
+          <select formControlName="state" id="state" [(ngModel)]="details['state']" class="form-control">
+            <option value="0">--Select--</option>
+            <option *ngFor="let state of states " value={{state.id}}>{{state.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" i18n>Email</label>
+        <input formControlName="email" id="email" [(ngModel)]="details['email']" type="email" class="form-control">
+        <div *ngIf="formControls.email.touched && formControls.email.invalid" class="alert alert-danger">
+          <div *ngIf="formControls.email.errors.email" i18n>Please, enter valid email address.</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="gender" i18n>Gender</label>
+          <select class="form-control" formControlName="gender" [(ngModel)]="details['gender']" id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="maritalstatus" i18n>Marital Status</label>
+          <select class="form-control" formControlName="maritalstatus" [(ngModel)]="details['maritalstatus']"
+                  id="maritalstatus">
+            <option value="married" i18n>Married</option>
+            <option value="unmarried" selected="selected" i18n>Unmarried</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label for="contact" i18n>Contact</label>
+        <input type="text" formControlName="contact" [(ngModel)]="details['contact']" class="form-control" id="contact">
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-12 col-12 col-md-6 form-group">
+          <label for="dob" i18n>Date of birth</label>
+          <input type="date" class="form-control" formControlName="dob" [(ngModel)]="details['dob']" id="dob"
+                 max="{{date | date:'yyyy-MM-dd'}}" (change)="onDate($event.target.value)"/>
+        </div>
+        <div class="form-group col-xs-12 col-12 col-md-6">
+          <label for="registerDate" i18n>Registered date</label>
+          <input type="date" class="form-control" formControlName="registerDate" [(ngModel)]="details['registerDate']"
+                 id="registerDate">
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="form-group col-xs-12 col-12 col-md-6">
+          <label for="accountType" i18n>Account Type</label>
+          <select class="form-control select2" id="accountType" formControlName="accountType"
+                  [(ngModel)]="details['accountType']" (change)="onAccountType($event.target.value)">
+            <option value="saving" i18n>Saving</option>
+            <option value="salary" i18n>Salary</option>
+          </select>
+        </div>
+        <div class="form-group col-xs-12 col-12 col-md-6">
+          <label for="branch" i18n>Branch name</label>
+          <input type="text" class="form-control" formControlName="branch" [(ngModel)]="details['branch']" id="branch">
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="citizen" i18n>Citizen status</label>
+        <input type="text" value={{details.citizen}} class="form-control" formControlName="citizen"
+               [(ngModel)]="details['citizen']" id="citizen">
+      </div>
+
+      <div class="form-group">
+        <label for="deposit" i18n>Initial Deposit Amount</label>
+        <input type="text" value={{details.deposit}} class="form-control" formControlName="deposit"
+               [(ngModel)]="details['deposit']" id="deposit">
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-12 col-12 col-md-6">
+          <label for="prooftype" i18n>Identification Proof Type</label>
+          <select value={{details.prooftype}} class="form-control" formControlName="prooftype"
+                  [(ngModel)]="details['prooftype']" id="prooftype">
+            <option value="aadhar">Aadhaar</option>
+            <option value="pan">Pan</option>
+
+          </select>
+        </div>
+        <div class="form-group col-xs-12 col-12 col-md-6">
+          <label for="docnumber" i18n>Identification Document Number</label>
+          <input type="text" value={{details.docnumber}} class="form-control" formControlName="docnumber"
+                 [(ngModel)]="details['docnumber']" id="docnumber">
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="refername" i18n>Reference account holder name</label>
+        <input type="text" value={{details.refername}} class="form-control" formControlName="refername"
+               [(ngModel)]="details['refername']" id="refername">
+      </div>
+
+      <div class="form-group">
+        <label for="refernumber" i18n>Reference account number</label>
+        <input type="text" value={{details.refernumber}} class="form-control" formControlName="refernumber"
+               [(ngModel)]="details['refernumber']" id="refernumber">
+      </div>
+
+      <div class="form-group">
+        <label for="referaddress" i18n>Reference account holder address</label>
+        <textarea value={{details.referaddress}} class="form-control" formControlName="referaddress"
+                  [(ngModel)]="details['referaddress']" id="referaddress"></textarea>
+      </div>
+      <div>
+        <button class="btn btn-primary" type="submit" i18n>Update</button>
+      </div>
+      <br><br>
+    </form>
+  </div>
+</div>
